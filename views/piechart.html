@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>pieChart</title>
+	<link href="../theme/nv.d3.css" rel="stylesheet">
+	<script src='../scripts/nvd3/d3.v3.js'></script>
+	<script src="../scripts/nvd3/nv.d3.js"></script>
+	<script src="../scripts/nvd3/legend.js"></script>
+	<script src='../scripts/nvd3/utils.js'></script>
+	<script src='../scripts/nvd3/pie.js'></script>
+	<script src='../scripts/nvd3/pieChart.js'></script>
+	<script src='../data.js'></script>
+	<style> 
+		text {font:12px sans-serif;}
+		.mypiechart { width:500px; border:2px;}
+	</style>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="../theme/css/layouts/side-menu.css">
+    <!--<![endif]-->
+</head>
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id='menuLink' class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">NVD3_Test</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./tableSorted.html">dataTable</a></li>
+                <li><a href="./piechart.html"  class="menu-item-divided pure-menu-selected">pieChart</a></li>
+                <li><a href="./scatterChart.html">scatterChart</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h2>這是個圓餅圖</h2>
+        </div>
+        <div class="content">
+			<svg id="test1" class="mypiechart"></svg>
+			<svg id="test2" class="mypiechart"></svg>
+		</div>
+	</div>
+</div>
+<script src="../scripts/ui.js"></script>
+</body>
+
+<script>
+
+function rawData() {
+	var data=[
+	{ key: "木", y: 0},
+    { key: "水", y: 0},
+    { key: "火", y: 0},
+    { key: "光", y: 0},
+    { key: "暗", y: 0}];
+	for(i=0;i<rawdata.length;i++) {
+		switch(rawdata[i].attr) {
+			case '木': 		data[0].y++; break;
+			case '木／木':	data[0].y++; data[0].y+=0.5; break;
+			case '木／水':	data[0].y++; data[1].y+=0.5; break;
+			case '木／火':	data[0].y++; data[2].y+=0.5; break;
+			case '木／光':	data[0].y++; data[3].y+=0.5; break;
+			case '木／暗':	data[0].y++; data[4].y+=0.5; break;
+			case '水': 		data[1].y++; break;
+			case '水／木': 	data[1].y++; data[0].y+=0.5; break;
+			case '水／水': 	data[1].y++; data[1].y+=0.5; break;
+			case '水／火': 	data[1].y++; data[2].y+=0.5; break;
+			case '水／光': 	data[1].y++; data[3].y+=0.5; break;
+			case '水／暗': 	data[1].y++; data[4].y+=0.5; break;
+			case '火': 		data[2].y++; break;
+			case '火／木': 	data[2].y++; data[0].y+=0.5; break;
+			case '火／水': 	data[2].y++; data[1].y+=0.5; break;
+			case '火／火': 	data[2].y++; data[2].y+=0.5; break;
+			case '火／光': 	data[2].y++; data[3].y+=0.5; break;
+			case '火／暗': 	data[2].y++; data[4].y+=0.5; break;
+			case '光': 		data[3].y++; break;
+			case '光／木': 	data[3].y++; data[0].y+=0.5; break;
+			case '光／水': 	data[3].y++; data[1].y+=0.5; break;
+			case '光／火': 	data[3].y++; data[2].y+=0.5; break;
+			case '光／光': 	data[3].y++; data[3].y+=0.5; break;
+			case '光／暗': 	data[3].y++; data[4].y+=0.5; break;
+			case '暗': 		data[4].y++; break;
+			case '暗／木': 	data[4].y++; data[0].y+=0.5; break;
+			case '暗／水': 	data[4].y++; data[1].y+=0.5; break;
+			case '暗／火': 	data[4].y++; data[2].y+=0.5; break;
+			case '暗／光': 	data[4].y++; data[3].y+=0.5; break;
+			case '暗／暗': 	data[4].y++; data[4].y+=0.5; break;
+		}
+	}
+	console.log(data);
+	return data;
+}
+
+nv.addGraph(function() {
+    var width = 500,
+        height = 500;
+
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.key })
+        .y(function(d) { return d.y })
+        .color(d3.scale.category10().range())
+        .width(width)
+        .height(height);
+
+      d3.select("#test1")
+          .datum(rawData())
+        .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+
+    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+    return chart;
+});
+
+nv.addGraph(function() {
+
+    var width = 500,
+        height = 500;
+
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.key })
+        //.y(function(d) { return d.value })
+        //.labelThreshold(.08)
+        //.showLabels(false)
+        .color(d3.scale.category10().range())
+        .width(width)
+        .height(height)
+        .donut(true);
+
+    chart.pie
+        .startAngle(function(d) { return d.startAngle/2 -Math.PI/2 })
+        .endAngle(function(d) { return d.endAngle/2 -Math.PI/2 });
+
+      //chart.pie.donutLabelsOutside(true).donut(true);
+
+      d3.select("#test2")
+          //.datum(historicalBarChart)
+          .datum(rawData())
+        .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+
+    return chart;
+});
+</script>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Table sort example</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="../scripts/sort.js"></script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="../theme/css/layouts/side-menu.css">
+    <!--<![endif]-->
+</head>
+<body onLoad="transform('name')">
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id='menuLink' class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">NVD3_Test</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./tableSorted.html" class="menu-item-divided pure-menu-selected">dataTable</a></li>
+                <li><a href="./piechart.html">pieChart</a></li>
+                <li><a href="./scatterChart.html">scatterChart</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h2>從padwiki爬下來的資料</h2>
+        </div>
+        <div>
+            <table class='pure-table'>
+            	<thead></thead>
+            	<tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../scripts/ui.js"></script>
+</html>

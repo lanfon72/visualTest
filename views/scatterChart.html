@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Examples</title>
+	<link href="../theme/nv.d3.css" rel="stylesheet">
+	<script src="../scripts/nvd3/d3.v3.js"></script>
+	<script src="../scripts/nvd3/nv.d3.js"></script>
+	<script src="../scripts/nvd3/tooltip.js"></script>
+	<script src="../scripts/nvd3/utils.js"></script>
+	<script src="../scripts/nvd3/legend.js"></script>
+	<script src="../scripts/nvd3/axis.js"></script>
+	<script src="../scripts/nvd3/distribution.js"></script>
+	<script src="../scripts/nvd3/scatter.js"></script>
+	<script src="../scripts/nvd3/scatterChart.js"></script>
+	<script src="../data.js"></script>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="../theme/css/layouts/side-menu.css">
+    <!--<![endif]-->
+</head>
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id='menuLink' class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">NVD3_Test</a>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./tableSorted.html">dataTable</a></li>
+                <li><a href="./piechart.html">pieChart</a></li>
+                <li><a href="./scatterChart.html" class="menu-item-divided pure-menu-selected">scatterChart</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h2>這是個散佈圖</h2>
+        </div>
+        <div class="content">
+			<div id="offsetDiv">
+		  		<div id="test1" class='with-3d-shadow with-transitions'>
+		    		<svg style="height:600px;"></svg>
+		  		</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../scripts/ui.js"></script>
+</body>
+
+<script>
+var chart;
+nv.addGraph(function() {
+  chart = nv.models.scatterChart()
+                .showDistX(true)
+                .showDistY(true)
+                .useVoronoi(true)
+                .color(d3.scale.category10().range())
+                .transitionDuration(300)
+                ;
+
+  chart.xAxis.tickFormat(d3.format('.02f'));
+  chart.yAxis.tickFormat(d3.format('.02f'));
+  chart.tooltipContent(function(key) {
+      return '<h2>' + key + '</h2>';
+  });
+
+  d3.select('#test1 svg')
+      .datum(rawData())
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+
+  return chart;
+});
+
+function rawData() {
+	var data = [];
+	var types = ["龍","平衡","回復","攻擊","體力","惡魔"];
+		//["龍","平衡","回復","攻擊","體力","神","進化用","強化合成用","惡魔","能力覺醒用"]
+	for(j=0;j<types.length;j++) {
+		data.push( {
+			key: types[j],
+			values:[]
+		});
+	}
+	//console.log(data);
+	for(i=0;i<rawdata.length;i++) {
+		var putV;
+		switch(rawdata[i].type) {
+			case '龍': putV=data[0];  break;
+			case '平衡': putV=data[1];  break;
+			case '回復': putV=data[2];  break;
+			case '攻擊': putV=data[3];  break;
+			case '體力': putV=data[4];  break;
+			//case '神': putV=data[5];  break;
+			//case '進化用': putV=data[6];  break;
+			//case '強化合成用': putV=data[7];  break;
+			case '惡魔': putV=data[5];  break;
+			//case '能力覺醒用': putV=data[9];  break;
+			default: continue;
+		}
+		putV.values.push({
+			y: rawdata[i].feed/100, //vertical
+			x: rawdata[i].sell/100,	//parallel
+			size: rawdata[i].star.charAt(1),
+			shape: ""
+		});
+	}
+	return data;
+}
+/*
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: []
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+*/
+</script>
+</html>

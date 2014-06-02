@@ -1,65 +1,68 @@
 <!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
-
-  <title>Visualtest</title>
-  <meta name="description" content="wwwwwwwork">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Menu &ndash; Layout Examples &ndash; Pure</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="theme/css/layouts/side-menu.css">
+    <!--<![endif]-->
 </head>
-
 <body>
 
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Visualtest</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">wwwwwwwork</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/lanfon72/visualTest/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/lanfon72/visualTest/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/lanfon72/visualTest" class="code">View Visualtest on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h1>
-<a name="visualtest" class="anchor" href="#visualtest"><span class="octicon octicon-link"></span></a>visualTest</h1>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id='menuLink' class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
 
-<p>wwwwwwwork</p>
-        </article>
-      </div>
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="#">NVD3_Test</a>
+            <ul>
+                <li><a href="index.html" class="menu-item-divided pure-menu-selected">Home</a></li>
+                <li><a href="views/tableSorted.html">dataTable</a></li>
+                <li><a href="views/piechart.html">pieChart</a></li>
+                <li><a href="views/scatterChart.html">scatterChart</a></li>
+            </ul>
+        </div>
     </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/lanfon72" class="avatar"><img src="https://avatars1.githubusercontent.com/u/5169694?s=60" width="48" height="48"/></a> <a href="https://github.com/lanfon72">lanfon72</a> maintains <a href="https://github.com/lanfon72/visualTest">Visualtest</a></p>
 
+    <div id="main">
+        <div class="header">
+            <h1>Data Visualization</h1>
+            <h2>NVD3 Test Project</h2>
+        </div>
 
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/lanfon72/visualTest/tarball/master" class="tar">tar</a><a href="https://github.com/lanfon72/visualTest/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
+        <div class="content">
+            <h2 class="content-subhead">What is data visualization?</h2>
+            <p>
+                資料視覺化早在電腦發展的早期就已經被提出，相關資料可參考<a href="http://zh.wikipedia.org/wiki/數據可視化">維基百科</a>。  在這主要是使用 <a href="http://d3js.org/">D3.js library</a> 及其衍生 library: <a href="http://nvd3.org/">NVD3</a> ，利用 html5 所提供的新標籤，產生視覺化圖表(順便練習一下CSS3跟javascript)。
+            </p>
+            <h2 class="content-subhead">關於資料</h2>
+            <p>
+                資料的部份，因為之前<strike>蜘蛛人</strike>Ronnywang實況了<a href="http://www.youtube.com/watch?v=E2nG3SqqpTk">用php爬監察院資料</a>，所以就順便用php寫了一支crawler去爬<a href="http://zh.pad.wikia.com/">pad的wiki</a>(source code也在github)。政治獻金的部份可參考：<a href="http://www.appledaily.com.tw/realtimenews/article/new/20140422/383438/">蘋果新聞</a>、<a href="https://www.facebook.com/cy.sunshine">FB粉絲頁</a>。
+            </p>
+            <h2 class="content-subhead">關於圖表</h2>
+            <p>
+                圖表的部份，利用爬下來的資料測了可排序表格(sortedtable)、圓餅圖(piechart)和散佈圖(scatterChart)。相關的圖表其實並不是什麼太新的技術，利用原始資料(rawdata)也可以在 Excel 上進行操作，但 D3js 之所以重要的原因在於：你不用裝 excel 就可以看了啊笨蛋=_=(而且還跨平台)。
+            </p>
 
-  
+            <div class="pure-g">
+                <div class="pure-u-1-1">
+                    <img class="pure-img-responsive" src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10257926_589194334526417_106622042789146340_o.jpg" alt="Peyto Lake">
+                </div>
+            </div>
+            <p align='right'>豆腐好吃喔O_<</p>
+        </div>
+    </div>
+</div>
+<a href="https://github.com/lanfon72"><img style="position: absolute; top: 0; right: 0; border: 0;" src="./scripts/imgs/github.png" height="149" width="149" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+<script src="scripts/ui.js"></script>
 </body>
 </html>
